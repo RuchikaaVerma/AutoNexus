@@ -10,3 +10,4 @@ logs/*.log
 ml/data/raw/
 services/voice/audio/recordings/
 *.db
+.DS_Store
