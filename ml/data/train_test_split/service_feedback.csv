@@ -1,0 +1,6 @@
+timestamp,vehicle_id,customer_name,service_type,rating,sentiment,raw_response
+2026-03-07T11:42:29.875858,VEH001,Rahul Sharma,brake service,4,positive,"I give it a 4 out of 5, great service"
+2026-03-07T12:05:41.454529,VEH_INT_001,Test Customer,brake service,4,positive,"I give it a 4 out of 5, great service"
+2026-03-07T12:06:59.178086,VEH002,Priya Singh,engine oil service,4,positive,"I give it a 4 out of 5, great service"
+2026-03-07T12:50:55.098834,VEH002,Priya Singh,engine oil service,4,positive,"I give it a 4 out of 5, great service"
+2026-03-07T17:09:38.037795,VEH002,Priya Singh,engine oil service,4,positive,"I give it a 4 out of 5, great service"
