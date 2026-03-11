@@ -1,45 +1,20 @@
 {
-  "dashboard": {
+"dashboard": {
     "title": "UEBA Security Dashboard",
     "panels": [
-      {
+    {
         "title": "Anomaly Score Over Time",
         "type": "graph"
-      },
-      {
+    },
+    {
         "title": "Blocked Agents",
         "type": "stat"
-      },
-      {
+    },
+    {
         "title": "Alert History",
         "type": "table"
-      }
+    }
     ]
-  }
 }
-```
+}
 
----
-
-## Quick Checklist — Message Your Teammates:
-
-### Message to Person 1:
-```
-Hey! Person 4 complete. My 4 agents are in:
-services/agents/workers/
-Import them in master_agent.py
-UEBA alerts go to POST /ueba/alert
-```
-
-### Message to Person 2:
-```
-Hey! Feedback CSV is at:
-ml/data/service_feedback.csv
-Use it for model retraining — updates after every customer call
-```
-
-### Message to Person 3:
-```
-Hey! UEBA alerts available at GET /ueba/alerts
-Poll every 10 seconds in UEBAMonitor.jsx
-Demo trigger at POST /demo/trigger/1, /2, /3
