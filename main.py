@@ -1,4 +1,8 @@
 from fastapi import FastAPI #importing fastapi class
+from database import engine, Base
+from models import Vehicle
+# Create all tables
+Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="Automotive backend API",
     description="Predictive maintenance system for vehicles",
