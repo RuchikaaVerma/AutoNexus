@@ -1,13 +1,23 @@
-.env.example
-venv/
+# Python
 __pycache__/
 *.pyc
-*.db
-.DS_Store
-cat >> .gitignore << 'EOF'
+*.pyo
+.env
+venv/
 
-ml/models/*.pkl
-*.db
-logs/*.log
-EOFml/data/raw/
+# Large data files
 ml/data/raw/
+ml/data/*.csv
+ml/data/processed/
+
+# Models (stored on Hugging Face)
+ml/models/*.pkl
+
+# Logs
+logs/
+*.log
+*.db
+
+# OS
+.DS_Store
+Thumbs.db
