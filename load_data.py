@@ -127,7 +127,10 @@ for file in csv_files[:81]:
         # =================================================================
         # SENSOR 6: MILEAGE (Calculated from speed)
         # =================================================================
-        duration_hours = len(df) / 3600  # Assuming 1 reading per second
+        first_time = pd.to_datetime(df['Time'].iloc[0])
+        last_time = pd.to_datetime(df['Time'].iloc[-1])
+        duration = last_time - first_time
+        duration_hours = duration.total_seconds() / 3600
         trip_distance = avg_speed * duration_hours
 
         # Total mileage = base + trip (simulate accumulated mileage)
