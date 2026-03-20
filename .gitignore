@@ -10,3 +10,4 @@ ml/models/*.pkl
 *.db
 logs/*.log
 EOFml/data/raw/
+ml/data/raw/
