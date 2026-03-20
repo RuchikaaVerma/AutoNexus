@@ -1,0 +1,30 @@
+{
+  "model": "RandomForestClassifier",
+  "accuracy_pct": 96.21,
+  "cv_accuracy_pct": 95.79,
+  "features": [
+    "brake_temperature",
+    "brake_fluid_level",
+    "oil_pressure",
+    "engine_temperature",
+    "tire_pressure",
+    "mileage",
+    "days_since_last_service",
+    "brake_temp_deviation",
+    "oil_pressure_deviation",
+    "avg_daily_mileage",
+    "brake_risk_score",
+    "engine_risk_score",
+    "sensor_variance",
+    "mileage_category",
+    "driving_encoded"
+  ],
+  "classes": [
+    "CRITICAL",
+    "HIGH",
+    "LOW",
+    "MEDIUM"
+  ],
+  "train_rows": 9600,
+  "test_rows": 2400
+}
