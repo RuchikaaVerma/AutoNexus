@@ -6,8 +6,17 @@ RUN: python services/demo/demo_runner.py
 AUTHOR: Person 4
 """
 
-import time
 import sys
+import os
+
+# ── Fix: add project root to path so 'services' is always importable ──────────
+# This works whether you run from root, from services/demo/, or anywhere else
+_project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if _project_root not in sys.path:
+    sys.path.insert(0, _project_root)
+# ──────────────────────────────────────────────────────────────────────────────
+
+import time
 import logging
 from datetime import datetime
 
@@ -43,7 +52,6 @@ def warn(text):
 
 # ==============================================================================
 # DEMO SCENARIO 1 — Vehicle Failure Alert + Customer Engagement
-# Shows: ML prediction → AI voice call → SMS → Email → Appointment booking
 # ==============================================================================
 
 def demo_scenario_1():
@@ -51,7 +59,6 @@ def demo_scenario_1():
     info("AutoNexus ML system detects brake failure risk for VEH001")
     time.sleep(1)
 
-    # Simulate prediction from Person 2's ML model
     prediction = {
         "vehicle_id":          "VEH001",
         "customer_name":       "Rahul Sharma",
@@ -62,7 +69,7 @@ def demo_scenario_1():
         "failure_probability": 0.89,
     }
 
-    step(1, f"ML Model Prediction received")
+    step(1, "ML Model Prediction received")
     info(f"Vehicle        : {prediction['vehicle_id']}")
     info(f"Component      : {prediction['component_at_risk']}")
     info(f"Days until fail: {prediction['days_until_failure']}")
@@ -110,7 +117,6 @@ def demo_scenario_1():
 
 # ==============================================================================
 # DEMO SCENARIO 2 — Appointment + Reminder + Feedback + RCA Report
-# Shows: Calendar booking → Reminder → Post-service feedback → PDF report
 # ==============================================================================
 
 def demo_scenario_2():
@@ -176,7 +182,7 @@ def demo_scenario_2():
 
 # ==============================================================================
 # DEMO SCENARIO 3 — UEBA Security Threat Detection
-# Shows: Normal behaviour → Anomaly detected → Alert → Block → Access control
+# ── FIX: use start_baseline/finish_baseline so Step 1 is silent ──────────────
 # ==============================================================================
 
 def demo_scenario_3():
@@ -184,30 +190,40 @@ def demo_scenario_3():
     info("AutoNexus UEBA system monitors all AI agents for suspicious behaviour")
     time.sleep(1)
 
-    from services.security.ueba.behavior_baseline import BehaviorBaseline
     from services.security.ueba.anomaly_detector import AnomalyDetector
     from services.security.ueba.alert_manager import handle_anomaly, block_agent, unblock_agent, is_blocked
     from services.security.ueba.access_control import check_permission
 
     detector = AnomalyDetector()
 
+    # ── STEP 1: Build baseline silently (no WARNING spam) ────────────────────
     step(1, "Recording normal EngagementAgent behaviour (baseline)...")
-    for i in range(25):
+
+    detector.start_baseline("EngagementAgent")        # suppresses warnings
+    for _ in range(25):
         detector.score_action("EngagementAgent", "api_call",    {"endpoint": "/predict"})
         detector.score_action("EngagementAgent", "data_access", {"table": "vehicles"})
-    baseline = detector.baseline.get_baseline("EngagementAgent")
-    ok(f"Baseline built   | samples={baseline['sample_count']} | rate={baseline['call_rate_rpm']} rpm")
+    detector.finish_baseline("EngagementAgent")        # trains model on REAL data
 
+    baseline = detector.baseline.get_baseline("EngagementAgent")
+    ok(f"Baseline built   | samples={baseline['sample_count']} | rate={baseline['call_rate_rpm']:.2f} rpm")
+
+    # ── STEP 2: Normal action — should now score LOW ─────────────────────────
     step(2, "Testing normal action (should be LOW risk)...")
     normal = detector.score_action("EngagementAgent", "api_call")
     info(f"api_call score   : {normal['score']}/100 | level={normal['risk_level']}")
-    ok("Normal action — no alert triggered") if not normal["is_anomaly"] else warn("Flagged unexpectedly")
+    if not normal["is_anomaly"]:
+        ok("Normal action — no alert triggered")
+    else:
+        warn("Flagged unexpectedly")
 
+    # ── STEP 3: Suspicious action ────────────────────────────────────────────
     step(3, "Simulating suspicious action — bulk_data_export...")
     time.sleep(0.5)
     suspicious = detector.score_action("EngagementAgent", "bulk_data_export", {"rows": 50000})
     info(f"bulk_export score: {suspicious['score']}/100 | level={suspicious['risk_level']}")
 
+    # ── STEP 4: Critical threat → alert + block ──────────────────────────────
     step(4, "Simulating critical threat — admin_override...")
     time.sleep(0.5)
     critical_result = {
@@ -224,10 +240,12 @@ def demo_scenario_3():
     ok(f"Dashboard alerted: P3 UEBAAlerts.jsx notified")
     ok(f"Backend alerted  : P1 /alerts endpoint notified")
 
+    # ── STEP 5: Verify agent is blocked ──────────────────────────────────────
     step(5, "Checking agent is blocked...")
     blocked = is_blocked("EngagementAgent")
     ok(f"Agent blocked    : {blocked}")
 
+    # ── STEP 6: Access control matrix ────────────────────────────────────────
     step(6, "Testing access control matrix...")
     checks = [
         ("EngagementAgent", "predictions",  "allowed"),
@@ -236,10 +254,11 @@ def demo_scenario_3():
         ("FeedbackAgent",   "admin_panel",  "DENIED"),
     ]
     for agent, resource, expected in checks:
-        r = check_permission(agent, resource)
+        r      = check_permission(agent, resource)
         status = "✅ allowed" if r["allowed"] else "🚫 DENIED"
         print(f"    {agent:<30} → {resource:<20} : {status}")
 
+    # ── STEP 7: Unblock after review ─────────────────────────────────────────
     step(7, "Unblocking agent after review (incident resolved)...")
     unblock_agent("EngagementAgent")
     ok(f"Agent unblocked  : {not is_blocked('EngagementAgent')}")
@@ -260,19 +279,17 @@ def run_full_demo():
     print(f"{RESET}")
     print(f"  Started at : {datetime.now().strftime('%d %b %Y %H:%M:%S')}")
     print(f"  Mode       : DEMO (simulated responses, no real phone/email)")
-    print(f"  Branch     : feature/p4-security")
+    print(f"  Branch     : feature/p4-services")
 
     start = time.time()
 
     try:
-        # Run all 3 scenarios
         r1 = demo_scenario_1()
         time.sleep(2)
         r2 = demo_scenario_2()
         time.sleep(2)
         demo_scenario_3()
 
-        # Final summary
         elapsed = round(time.time() - start, 1)
         banner("DEMO COMPLETE — All Systems Operational!", GREEN)
         print(f"  {GREEN}✅ Scenario 1: Customer engagement    — {r1.get('call_outcome','done')}{RESET}")
