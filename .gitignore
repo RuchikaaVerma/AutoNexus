@@ -1,13 +1,12 @@
-.env
+.env.example
 venv/
-.venv/
 __pycache__/
 *.pyc
-*.pkl
-node_modules/
-frontend/build/
-logs/*.log
-ml/data/raw/
-services/voice/audio/recordings/
 *.db
 .DS_Store
+cat >> .gitignore << 'EOF'
+
+ml/models/*.pkl
+*.db
+logs/*.log
+EOF
