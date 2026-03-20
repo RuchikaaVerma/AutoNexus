@@ -1,6 +1,12 @@
+.env.example
 venv/
-.venv/
 __pycache__/
 *.pyc
 *.db
 .DS_Store
+cat >> .gitignore << 'EOF'
+
+ml/models/*.pkl
+*.db
+logs/*.log
+EOF

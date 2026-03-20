@@ -1,0 +1,20 @@
+{
+"dashboard": {
+    "title": "UEBA Security Dashboard",
+    "panels": [
+    {
+        "title": "Anomaly Score Over Time",
+        "type": "graph"
+    },
+    {
+        "title": "Blocked Agents",
+        "type": "stat"
+    },
+    {
+        "title": "Alert History",
+        "type": "table"
+    }
+    ]
+}
+}
+
