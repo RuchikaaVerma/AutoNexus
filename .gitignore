@@ -1,36 +1,45 @@
-# Logs
-logs
-*.log
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+*.db
+
+# Environment
+.env
+
+# Node
+node_modules/
+dist/
+dist-ssr/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
 *.local
 
-# Editor directories and files
+# ML files
+ml/data/raw/
+ml/data/*.csv
+ml/data/processed/
+ml/models/*.pkl
+
+# Logs
+logs/
+*.log
+
+# Editor
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-venv/
-__pycache__/
-*.pyc
-*.db
-.DS_Store
-=======
 
-ml/models/*.pkl
-*.db
-logs/*.log
-EOF
-
+# Audio recordings
+services/voice/audio/recordings/
