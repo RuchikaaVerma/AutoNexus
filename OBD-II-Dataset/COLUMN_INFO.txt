@@ -1,0 +1,20 @@
+OBD-II DATASET COLUMN INFORMATION
+======================================================================
+
+File: 2017-07-05_Seat_Leon_RT_S_Stau.csv
+Total Rows: 46,349
+Total Columns: 11
+
+COLUMNS:
+----------------------------------------------------------------------
+1. Time (object)
+2. Engine Coolant Temperature [°C] (int64)
+3. Intake Manifold Absolute Pressure [kPa] (float64)
+4. Engine RPM [RPM] (float64)
+5. Vehicle Speed Sensor [km/h] (float64)
+6. Intake Air Temperature [°C] (float64)
+7. Air Flow Rate from Mass Flow Sensor [g/s] (float64)
+8. Absolute Throttle Position [%] (float64)
+9. Ambient Air Temperature [°C] (float64)
+10. Accelerator Pedal Position D [%] (float64)
+11. Accelerator Pedal Position E [%] (float64)
