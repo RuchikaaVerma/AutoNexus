@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)](https://fastapi.tiangolo.com/)
 [![React](https://img.shields.io/badge/React-18.2-blue.svg)](https://reactjs.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 
 ---
 
@@ -22,7 +22,7 @@
 - [Project Structure](#project-structure)
 - [Demo](#demo)
 - [Future Roadmap](#future-roadmap)
-- [License](#license)
+
 
 ---
 
@@ -680,24 +680,11 @@ We welcome contributions! Please follow these steps:
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-**Contribution Guidelines**:
-- Follow PEP 8 for Python code
-- Write unit tests for new features
-- Update documentation
-- Add your name to contributors list
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ---
 
 ## 👨‍💻 Authors
 
-**Team AutoNexus - IIITM Gwalior**
+**Team AgentCrew **
 
 - **Person 1** - Backend & Integration Lead
 - **Person 2** - ML Engineer
@@ -707,22 +694,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 ## 🙏 Acknowledgments
-
-- **LibreOffice Community** for open-source inspiration
 - **RADAR OBD-II Dataset** (DOI: 10.35097/1130) for real vehicle data
 - **Hugging Face** for ML model hosting
 - **Twilio** for voice/SMS services
 - **IIITM Gwalior** for support and guidance
-
----
-
-## 📞 Contact
-
-**Project Link**: [https://github.com/your-username/autonexus](https://github.com/your-username/autonexus)
-
-**Email**: autonexus@iiitm.ac.in
-
-**Website**: [https://autonexus.com](https://autonexus.com) (Coming Soon)
 
 ---
 
