@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 """
 PURPOSE: Persistent appointment storage using SQLite via SQLAlchemy.
 CONNECTS TO: FILE 9 (scheduling_agent), FILE 13 (reminder_scheduler)
 """
+=======
+>>>>>>> d60c5abde7246fb5a06ce796ac3be5e2c92cec73
 import logging
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine, Column, String, DateTime, Integer, Text

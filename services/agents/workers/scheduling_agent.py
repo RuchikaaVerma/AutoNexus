@@ -97,6 +97,40 @@ class SchedulingAgent:
         logger.info(f"Rescheduled {appointment_id} to {new_date} {new_slot}")
         return {"success": True, "appointment": _appointments[appointment_id]}
 
+<<<<<<< HEAD
+=======
+    def process(self, data: dict) -> dict:
+        """Main entry point called by MasterAgent"""
+        vehicle_id = data.get("vehicle_id", "VEH002")
+        sensors = data.get("sensors", {})
+        owner = data.get("owner", {"name": "John Smith"})
+
+        # Determine urgency from sensors (simple logic matching document)
+        urgency = "EMERGENCY" if (
+                    sensors.get("brake_temp", 0) > 100 or sensors.get("oil_pressure", 0) < 25) else "ROUTINE"
+
+        result = self.book_appointment(
+            vehicle_id=vehicle_id,
+            customer_name=owner.get("name"),
+            component="brake_system" if urgency == "EMERGENCY" else "routine_maintenance"
+        )
+
+        return {
+            "agent": "SchedulingAgent",
+            "urgency": urgency,
+            "booking_success": result.get("success", False),
+            "appointment": result.get("appointment"),
+            "message": "Emergency slot booked for tomorrow 9 AM" if urgency == "EMERGENCY" else "Routine service scheduled in 7-14 days"
+        }
+    def get_info(self):
+        """Required by MasterAgent for /agents/status"""
+        return {
+            "name": self.name,
+            "description": "Books and manages service appointments based on urgency",
+            "status": "active"
+        }
+
+>>>>>>> d60c5abde7246fb5a06ce796ac3be5e2c92cec73
 
 if __name__ == "__main__":
     print("\n" + "="*55)

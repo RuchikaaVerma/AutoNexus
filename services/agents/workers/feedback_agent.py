@@ -192,6 +192,36 @@ class FeedbackAgent:
         
         logger.warning(f"Wrote legacy 9-column format to {FEEDBACK_CSV} - P2's retrain will fail with this!")
 
+<<<<<<< HEAD
+=======
+    def process(self, data: dict) -> dict:
+        """Main entry point from MasterAgent (called after service completion)"""
+        vehicle_id = data.get("vehicle_id")
+        service_status = data.get("service_status", "completed")
+
+        if service_status == "completed":
+            result = self.collect_feedback(
+                vehicle_id=vehicle_id,
+                customer_name=data.get("owner", {}).get("name", "Customer"),
+                service_type="emergency_brake_repair",
+                component="brakes"
+            )
+            return {
+                "agent": "FeedbackAgent",
+                "survey_required": True,
+                "rating": result.get("rating"),
+                "message": "Thank you for your feedback! 5% discount applied for next service.",
+                **result
+            }
+        return {"agent": "FeedbackAgent", "survey_required": False}
+    def get_info(self):
+        """Required by MasterAgent for /agents/status"""
+        return {
+            "name": self.name,
+            "description": "Collects customer feedback after service and saves data for ML retraining",
+            "status": "active"
+        }
+>>>>>>> d60c5abde7246fb5a06ce796ac3be5e2c92cec73
 
 if __name__ == "__main__":
     print("\n" + "="*60)

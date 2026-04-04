@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 FILE 5: services/notifications/sms_sender.py
 PURPOSE: Sends SMS messages via Twilio API.
@@ -8,6 +9,8 @@ CONNECTS TO:
 AUTHOR: Person 4
 """
 
+=======
+>>>>>>> d60c5abde7246fb5a06ce796ac3be5e2c92cec73
 import logging
 from datetime import datetime
 from services.agents.config.hf_model_config import (

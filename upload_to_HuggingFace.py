@@ -4,8 +4,8 @@ import os
 print("Uploading Model to Hugging Face...\n")
 
 # Your Hugging Face credentials
-HF_USERNAME = "RashmiVid"
-HF_TOKEN = "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"
+HF_USERNAME = "your_token"
+HF_TOKEN = "your_token"
 MODEL_NAME = "vehicle-failure-predictor"
 
 # Create repo (if doesn't exist)

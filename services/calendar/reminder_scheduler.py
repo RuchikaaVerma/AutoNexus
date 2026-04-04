@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 """
 PURPOSE: Background scheduler — sends 24hr and 1hr reminders automatically.
 CONNECTS TO: FILE 12 (appointment_manager), FILES 5,6 (SMS+email)
 """
+=======
+>>>>>>> d60c5abde7246fb5a06ce796ac3be5e2c92cec73
 import logging, time, threading
 from datetime import datetime
 from services.calendar.appointment_manager import AppointmentManager

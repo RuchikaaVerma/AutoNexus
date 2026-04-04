@@ -8,7 +8,8 @@ import joblib
 from huggingface_hub import hf_hub_download
 
 # Set token for private repo access
-os.environ["HF_TOKEN"] = "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"
+
+token = os.environ.get("HF_TOKEN")
 
 
 class MLPredictor:

@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 """
 PURPOSE: Firebase push notifications to mobile app.
 CONNECTS TO: engagement_agent.py (FILE 8), alert_manager.py (FILE 16)
 """
+=======
+>>>>>>> d60c5abde7246fb5a06ce796ac3be5e2c92cec73
 import logging
 from services.agents.config.hf_model_config import FIREBASE_SERVER_KEY
 logger = logging.getLogger(__name__)
