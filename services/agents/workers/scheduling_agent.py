@@ -1,3 +1,7 @@
+"""
+PURPOSE: Books, cancels, reschedules service appointments.
+CONNECTS TO: FILE 12 (appointment_manager), FILE 1 (config), P1 backend
+"""
 import logging
 from datetime import datetime, timedelta
 from services.agents.config.hf_model_config import BACKEND_BASE_URL
