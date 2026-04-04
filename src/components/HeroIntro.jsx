@@ -148,7 +148,7 @@ export default function HeroIntro({ onDone }) {
                     fontSize: "9px", fontWeight: "bold",
                     color: "white", letterSpacing: "2px",
                     fontFamily: "monospace",
-                  }}>AUTOCARE AI</span>
+                  }}>AutoNexus AI</span>
                 </div>
                 <div style={{ display: "flex", gap: "4px" }}>
                   {["Dashboard", "Analytics", "Security"].map(t => (
@@ -285,7 +285,7 @@ export default function HeroIntro({ onDone }) {
           fontFamily: "monospace", fontWeight: "bold",
           marginBottom: "8px",
         }}>
-          AUTOCARE AI — PREDICTIVE INTELLIGENCE
+          AutoNexus AI — PREDICTIVE INTELLIGENCE
         </div>
         <div style={{
           fontSize: "10px", color: "rgba(255,255,255,0.2)",

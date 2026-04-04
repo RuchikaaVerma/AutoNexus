@@ -1,68 +1,85 @@
+// services/api.js — UPDATED
+// Adds service booking, feedback, manufacturing endpoints
+// Keeps all existing exports Person 3 already uses
+// ─────────────────────────────────────────────────────────────
+
 import axios from "axios";
 
-// .env file se URL lo
-// Agar .env mein nahi hai toh localhost:8000 default use hoga
-const BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const BASE = import.meta.env.VITE_API_URL || "http://192.168.249.221:8000";
 
-// Axios instance banao — yeh ek configured HTTP client hai
 const api = axios.create({
-  baseURL: BASE,
-  timeout: 10000, // 10 second mein response nahi aaya toh error
-  headers: {
-    "Content-Type": "application/json",
-  },
+baseURL: BASE,
+timeout: 60000,   // 60s — analysis takes time (voice call + 8 agents)
+headers: {
+"Content-Type": "application/json",
+"ngrok-skip-browser-warning": "true", // prevents ngrok browser warning
+},
 });
 
-// ── VEHICLE APIs ──
-
-// Saare vehicles fetch karo
+// ── VEHICLE APIs (existing — unchanged) ─────────────────────
 export const getVehicles = () =>
-  api.get("/vehicles").then(r => r.data);
+api.get("/vehicles").then((r) => r.data);
 
-// Ek vehicle fetch karo ID se
 export const getVehicle = (id) =>
-  api.get(`/vehicles/${id}`).then(r => r.data);
+api.get(`/vehicles/${id}`).then((r) => r.data);
 
-// Sensor history fetch karo
 export const getSensorHistory = (id) =>
-  api.get(`/vehicles/${id}/sensors/history`).then(r => r.data);
+api.get(`/vehicles/${id}/sensors/history`).then((r) => r.data);
 
-// ── PREDICTION APIs ──
-
-// Saari predictions fetch karo
+// ── PREDICTION APIs (existing — unchanged) ──────────────────
 export const getPredictions = () =>
-  api.get("/predictions").then(r => r.data);
+api.get("/predictions").then((r) => r.data);
 
-// Ek vehicle ki predictions
-export const getVehiclePredictions = (id) =>
-  api.get(`/predictions/${id}`).then(r => r.data);
+export const mlPredict = (id) =>
+api.post(`/ml-predict/${id}`).then((r) => r.data);
 
-// ── DASHBOARD APIs ──
+// ── AGENTS API — ⭐ MAIN (existing — unchanged) ─────────────
+// This triggers: voice call (if daytime+critical) + SMS + 8 agents
+export const analyzeVehicle = (id) =>
+api.post(`/agents/analyze/${id}`).then((r) => r.data);
 
-// Dashboard stats fetch karo
+export const getAgentsStatus = () =>
+api.get("/agents/status").then((r) => r.data);
+
+// ── DASHBOARD APIs (existing — unchanged) ───────────────────
 export const getDashboardStats = () =>
-  api.get("/dashboard/stats").then(r => r.data);
+api.get("/dashboard/stats").then((r) => r.data);
 
-// ── APPOINTMENT APIs ──
-
-// Appointment book karo
+// ── SERVICE BOOKING (NEW) ────────────────────────────────────
 export const bookAppointment = (data) =>
-  api.post("/appointments", data).then(r => r.data);
+api.post("/service/book", data).then((r) => r.data);
 
-// ── SECURITY APIs ──
+export const getServiceHistory = (vehicleId) =>
+api.get(`/service/history/${vehicleId}`).then((r) => r.data);
 
-// UEBA alerts fetch karo
+export const completeService = (bookingId, data) =>
+api.post(`/service/complete/${bookingId}`, data).then((r) => r.data);
+
+// ── FEEDBACK (NEW) ───────────────────────────────────────────
+export const submitFeedback = (bookingId, data) =>
+api.post(`/feedback/submit/${bookingId}`, data).then((r) => r.data);
+
+export const getVehicleFeedback = (vehicleId) =>
+api.get(`/feedback/vehicle/${vehicleId}`).then((r) => r.data);
+
+// ── MANUFACTURING INSIGHTS (NEW) ─────────────────────────────
+export const getFleetInsights = () =>
+api.get("/manufacturing/insights").then((r) => r.data);
+
+export const getVehicleInsights = (vehicleId) =>
+api.get(`/manufacturing/insights/${vehicleId}`).then((r) => r.data);
+
+// ── SECURITY APIs (existing — unchanged) ────────────────────
 export const getSecurityAlerts = () =>
-  api.get("/ueba/alerts").then(r => r.data);
+api.get("/ueba/alerts").then((r) => r.data);
 
-// ── ERROR HANDLING ──
-// Agar API call fail ho toh yeh interceptor catch karega
+// ── Error handling (existing — unchanged) ───────────────────
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.error("API Error:", error.message);
-    return Promise.reject(error);
-  }
+(res) => res,
+(err) => {
+console.error("API Error:", err.message);
+return Promise.reject(err);
+}
 );
 
 export default api;

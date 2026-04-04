@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+import ConnectionStatus from "./ConnectionStatus";
 const links = [
   { path: "/",          label: "Dashboard" },
   { path: "/analytics", label: "Analytics" },
@@ -38,7 +38,7 @@ export default function Navbar() {
         </div>
         <div>
           <div className="font-bold text-sm tracking-widest text-white">
-            AUTOCARE AI
+            AutoNexus AI
           </div>
           <div className="text-xs text-white/25 tracking-widest">
             PREDICTIVE INTELLIGENCE
@@ -69,6 +69,7 @@ export default function Navbar() {
         <span className="text-xs text-white/25 font-mono">
           {time}
         </span>
+        <ConnectionStatus />
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
           <span className="text-green-400 text-xs font-bold tracking-widest">

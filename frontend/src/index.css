@@ -2,17 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Dashboard cards transparent — background dike */
+/* Cards glass effect — background dike */
+.bg-gray-950 {
+  background: transparent !important;
+}
+
 .bg-gray-900 {
-  background-color: rgba(12, 16, 26, 0.75) !important;
-  backdrop-filter: blur(8px);
+  background: rgba(8, 14, 28, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 .bg-gray-800 {
-  background-color: rgba(16, 20, 32, 0.7) !important;
-  backdrop-filter: blur(6px);
+  background: rgba(12, 18, 35, 0.65) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
 }
 
-.bg-gray-950 {
-  background-color: transparent !important;
+.bg-gray-700 {
+  background: rgba(20, 28, 48, 0.75) !important;
+}
+
+/* Navbar glass */
+nav.fixed {
+  background: rgba(2, 8, 16, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
 }

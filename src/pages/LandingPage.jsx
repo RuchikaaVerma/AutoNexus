@@ -298,7 +298,7 @@ export default function LandingPage() {
           backgroundClip:       "text",
           marginBottom: "10px",
         }}>
-          AUTOCARE AI
+          AutoNexus AI
         </div>
 
         <div style={{ fontSize:".95rem", color:"rgba(255,255,255,.3)", fontWeight:300, letterSpacing:"3px", marginBottom:"36px" }}>

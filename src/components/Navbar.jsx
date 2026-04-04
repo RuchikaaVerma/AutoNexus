@@ -38,7 +38,7 @@ export default function Navbar() {
         </div>
         <div>
           <div className="font-bold text-sm tracking-widest text-white">
-            AUTOCARE AI
+            AutoNexus AI
           </div>
           <div className="text-xs text-white/25 tracking-widest">
             PREDICTIVE INTELLIGENCE

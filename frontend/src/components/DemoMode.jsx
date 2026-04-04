@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-// Demo script — kya kya hoga aur kab
 const DEMO_STEPS = [
   {
     time: 0,
@@ -53,9 +52,9 @@ export default function DemoMode({ onAgentChange }) {
   const [step, setStep]         = useState(0);
   const timers = useRef([]);
 
-  // Demo shuru karo
+ 
   function startDemo() {
-    // Purane timers clear karo
+   
     timers.current.forEach(clearTimeout);
     timers.current = [];
     setRunning(true);
@@ -68,12 +67,11 @@ export default function DemoMode({ onAgentChange }) {
         setToastColor(s.color);
         setStep(i);
 
-        // Agent highlight karo
+        
         if (s.agent && onAgentChange) {
           onAgentChange(s.agent);
         }
 
-        // Last step — demo khatam
         if (i === DEMO_STEPS.length - 1) {
           setTimeout(() => {
             setRunning(false);
@@ -87,7 +85,6 @@ export default function DemoMode({ onAgentChange }) {
     });
   }
 
-  // Demo band karo
   function stopDemo() {
     timers.current.forEach(clearTimeout);
     timers.current = [];
@@ -96,7 +93,6 @@ export default function DemoMode({ onAgentChange }) {
     if (onAgentChange) onAgentChange(null);
   }
 
-  // Component unmount pe cleanup
   useEffect(() => {
     return () => timers.current.forEach(clearTimeout);
   }, []);
