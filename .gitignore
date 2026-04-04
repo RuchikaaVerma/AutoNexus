@@ -2,3 +2,5 @@ venv/
 node_modules/
 __pycache__/
 .env
+ml/data/
+ml/models/
