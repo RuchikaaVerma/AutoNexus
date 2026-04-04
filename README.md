@@ -1,47 +1,73 @@
 # 🚗 AutoNexus - AI-Powered Predictive Vehicle Maintenance System
 
-**Autonomous Predictive Maintenance Platform using Real OBD-II Data & Multi-Agent AI Architecture**
+**Automotive Predictive Maintenance Platform using Real OBD-II Data & Multi-Agent AI Architecture**
+**We didn’t just make one smart model. We built a complete thinking system where Multi AI
+helpers work together like a team.**
 
-[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green.svg)](https://fastapi.tiangolo.com/)
-[![React](https://img.shields.io/badge/React-18.2-blue.svg)](https://reactjs.org/)
-[![LangChain](https://img.shields.io/badge/LangChain-0.2.1-yellow.svg)](https://langchain.com/)
-[![LangGraph](https://img.shields.io/badge/LangGraph-0.0.69-orange.svg)](https://langchain-ai.github.io/langgraph/)
-[![HuggingFace](https://img.shields.io/badge/HuggingFace-FREE-yellow.svg)](https://huggingface.co/)
-[![Transformers](https://img.shields.io/badge/Transformers-4.41.1-orange.svg)](https://huggingface.co/transformers/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.3.0-red.svg)](https://pytorch.org/)
-[![Scikit--Learn](https://img.shields.io/badge/ScikitLearn-1.4.2-orange.svg)](https://scikit-learn.org/)
-[![XGBoost](https://img.shields.io/badge/XGBoost-2.0.3-blue.svg)](https://xgboost.readthedocs.io/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.16.1-FF6F00.svg)](https://tensorflow.org/)
-[![Pandas](https://img.shields.io/badge/Pandas-2.2.2-150458.svg)](https://pandas.pydata.org/)
-[![NumPy](https://img.shields.io/badge/NumPy-1.26.4-013243.svg)](https://numpy.org/)
-[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0.30-red.svg)](https://sqlalchemy.org/)
-[![Redis](https://img.shields.io/badge/Redis-5.0.4-DC382D.svg)](https://redis.io/)
-[![Prometheus](https://img.shields.io/badge/Prometheus-Monitoring-E6522C.svg)](https://prometheus.io/)
-[![Grafana](https://img.shields.io/badge/Grafana-Dashboards-F46800.svg)](https://grafana.com/)
-[![Twilio](https://img.shields.io/badge/Twilio-SMS-F22F46.svg)](https://twilio.com/)
-[![SendGrid](https://img.shields.io/badge/SendGrid-Email-1A82E2.svg)](https://sendgrid.com/)
-[![Whisper](https://img.shields.io/badge/OpenAI_Whisper-STT-412991.svg)](https://github.com/openai/whisper)
-[![pyttsx3](https://img.shields.io/badge/pyttsx3-TTS-green.svg)](https://pypi.org/project/pyttsx3/)
-[![FFmpeg](https://img.shields.io/badge/FFmpeg-Audio-007808.svg)](https://ffmpeg.org/)
-[![NLTK](https://img.shields.io/badge/NLTK-NLP-154f3c.svg)](https://nltk.org/)
-[![spaCy](https://img.shields.io/badge/spaCy-NLP-09A3D5.svg)](https://spacy.io/)
-[![ReportLab](https://img.shields.io/badge/ReportLab-PDF-blue.svg)](https://reportlab.com/)
-[![Playwright](https://img.shields.io/badge/Playwright-Testing-2EAD33.svg)](https://playwright.dev/)
-[![Pytest](https://img.shields.io/badge/Pytest-8.2.0-blue.svg)](https://pytest.org/)
-[![SQLite](https://img.shields.io/badge/SQLite-Database-003B57.svg)](https://sqlite.org/)
-[![WebSocket](https://img.shields.io/badge/WebSocket-RealTime-black.svg)](https://websockets.readthedocs.io/)
-[![Uvicorn](https://img.shields.io/badge/Uvicorn-ASGI-499848.svg)](https://uvicorn.org/)
-[![Pydantic](https://img.shields.io/badge/Pydantic-2.7.1-E92063.svg)](https://docs.pydantic.dev/)
-[![Jinja2](https://img.shields.io/badge/Jinja2-Templates-B41717.svg)](https://jinja.palletsprojects.com/)
-[![APScheduler](https://img.shields.io/badge/APScheduler-Scheduler-blue.svg)](https://apscheduler.readthedocs.io/)
-[![iCalendar](https://img.shields.io/badge/iCalendar-Calendar-blue.svg)](https://pypi.org/project/icalendar/)
-[![Matplotlib](https://img.shields.io/badge/Matplotlib-Charts-11557c.svg)](https://matplotlib.org/)
-[![Plotly](https://img.shields.io/badge/Plotly-Visualization-3F4F75.svg)](https://plotly.com/)
-[![Loguru](https://img.shields.io/badge/Loguru-Logging-green.svg)](https://loguru.readthedocs.io/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Hackathon](https://img.shields.io/badge/Hackathon-Ready-brightgreen.svg)]()
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green)
+![React](https://img.shields.io/badge/React-18.2-blue)
+![Tailwind](https://img.shields.io/badge/TailwindCSS-Styling-38B2AC)
+![Vite](https://img.shields.io/badge/Vite-BuildTool-yellow)
 
+![LangChain](https://img.shields.io/badge/LangChain-0.2.1-yellow)
+![LangGraph](https://img.shields.io/badge/LangGraph-0.0.69-orange)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-FREE-yellow)
+![Transformers](https://img.shields.io/badge/Transformers-4.41.1-red)
+
+![PyTorch](https://img.shields.io/badge/PyTorch-2.3.0-red)
+![ScikitLearn](https://img.shields.io/badge/ScikitLearn-1.4.2-orange)
+![XGBoost](https://img.shields.io/badge/XGBoost-2.0.3-blue)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.16.1-orange)
+![Pandas](https://img.shields.io/badge/Pandas-2.2.2-purple)
+![NumPy](https://img.shields.io/badge/NumPy-1.26.4-blue)
+
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-red)
+![SQLite](https://img.shields.io/badge/SQLite-Database-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-DB-blue)
+
+![Pydantic](https://img.shields.io/badge/Pydantic-Validation-red)
+![Uvicorn](https://img.shields.io/badge/Uvicorn-ASGI-green)
+![WebSocket](https://img.shields.io/badge/WebSocket-RealTime-yellow)
+![Axios](https://img.shields.io/badge/Axios-API-blue)
+![ReactRouter](https://img.shields.io/badge/ReactRouter-Navigation-red)
+
+![Redis](https://img.shields.io/badge/Redis-Cache-red)
+![Prometheus](https://img.shields.io/badge/Prometheus-Monitoring-orange)
+![Grafana](https://img.shields.io/badge/Grafana-Dashboard-orange)
+
+![Twilio](https://img.shields.io/badge/Twilio-SMS-red)
+![SendGrid](https://img.shields.io/badge/SendGrid-Email-blue)
+
+![Whisper](https://img.shields.io/badge/OpenAI-Whisper-green)
+![pyttsx3](https://img.shields.io/badge/pyttsx3-TTS-green)
+![NLTK](https://img.shields.io/badge/NLTK-NLP-blue)
+![spaCy](https://img.shields.io/badge/spaCy-NLP-blue)
+
+![ReportLab](https://img.shields.io/badge/ReportLab-PDF-red)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-Charts-blue)
+![Plotly](https://img.shields.io/badge/Plotly-Visualization-blue)
+![Recharts](https://img.shields.io/badge/Recharts-Graphs-blue)
+
+![Playwright](https://img.shields.io/badge/Playwright-Testing-green)
+![Pytest](https://img.shields.io/badge/Pytest-Testing-green)
+
+![dotenv](https://img.shields.io/badge/python--dotenv-Config-yellow)
+![Jinja2](https://img.shields.io/badge/Jinja2-Templates-red)
+![APScheduler](https://img.shields.io/badge/APScheduler-Scheduler-blue)
+![iCalendar](https://img.shields.io/badge/iCalendar-Calendar-blue)
+
+![Loguru](https://img.shields.io/badge/Loguru-Logging-green)
+![Git](https://img.shields.io/badge/Git-VersionControl-black)
+![GitHub](https://img.shields.io/badge/GitHub-Repo-black)
+
+![Swagger](https://img.shields.io/badge/Swagger-Docs-green)
+![ReDoc](https://img.shields.io/badge/ReDoc-Docs-blue)
+
+![FramerMotion](https://img.shields.io/badge/FramerMotion-Animation-purple)
+
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Hackathon](https://img.shields.io/badge/Hackathon-Ready-brightgreen)
 ## 📋 Table of Contents
 
 - [Overview](#overview)
