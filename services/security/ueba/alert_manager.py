@@ -122,3 +122,42 @@ if __name__ == "__main__":
     unblock_agent("EngagementAgent")
     print(f"  Unblocked: {not is_blocked('EngagementAgent')}")
     print("  FILE 16 complete!\n")
+
+    # ==============================
+    # FASTAPI ROUTER (FOR API)
+    # ==============================
+
+from fastapi import APIRouter
+
+router = APIRouter()
+
+
+@router.get("/alerts")
+def get_alerts():
+    return {
+            "total_alerts": len(_alert_history),
+            "alerts": _alert_history
+        }
+
+
+@router.get("/blocked")
+def get_blocked_agents():
+    return {
+            "blocked_agents": list(_blocked_agents),
+            "count": len(_blocked_agents)
+        }
+
+
+@router.post("/unblock/{agent_name}")
+def unblock(agent_name: str):
+    unblock_agent(agent_name)
+    return {"message": f"{agent_name} unblocked"}
+
+
+@router.get("/status")
+def ueba_status():
+    return {
+            "alerts": len(_alert_history),
+            "blocked_agents": list(_blocked_agents),
+            "system": "UEBA active"
+        }

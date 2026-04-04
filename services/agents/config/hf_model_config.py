@@ -113,6 +113,14 @@ TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER", "")
 # SendGrid (Email) — free plan at sendgrid.com
 SENDGRID_API_KEY    = os.getenv("SENDGRID_API_KEY", "")
 SENDGRID_FROM_EMAIL = os.getenv("SENDGRID_FROM_EMAIL", "noreply@autonexus.com")
+# ============================================================
+# ADD THESE 2 LINES to hf_model_config.py
+# Place them in SECTION 4, after the SendGrid lines
+# (around line 95, after SENDGRID_FROM_EMAIL)
+# ============================================================
+
+GMAIL_SENDER_EMAIL = os.getenv("GMAIL_SENDER_EMAIL", "")
+GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD", "")
 
 # Firebase (Push notifications) — free at console.firebase.google.com
 FIREBASE_SERVER_KEY = os.getenv("FIREBASE_SERVER_KEY", "")

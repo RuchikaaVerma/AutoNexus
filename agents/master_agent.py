@@ -1,228 +1,122 @@
 """
-Master Agent
-Orchestrates and coordinates all other agents
+Master Agent - Full Integration (8 Agents)
+Orchestrates all agents from Person 1, 2, and 4
 """
 
 from typing import Dict, Any, List
 from datetime import datetime, timezone
 from .base_agent import BaseAgent
+
+# === IMPORT ALL AGENTS ===
+# Your original agents
 from .data_analysis_agent import DataAnalysisAgent
 from .diagnosis_agent import DiagnosisAgent
 
+# Person 2 Advanced Agents
+from .person2_data_analysis_agent import Person2DataAnalysisAgent
+from .person2_diagnosis_agent import Person2DiagnosisAgent
+
+# Person 4 Business Logic Agents
+from .engagement_agent import EngagementAgent
+from .scheduling_agent import SchedulingAgent
+from .feedback_agent import FeedbackAgent
+from .manufacturing_insights_agent import ManufacturingInsightsAgent
+
+
 class MasterAgent(BaseAgent):
-    """
-    Master orchestration agent
-
-    Coordinates multiple agents and combines their results
-    """
-
     def __init__(self, ml_predictor, state_manager=None):
-        """
-        Initialize Master Agent
-
-        Args:
-            ml_predictor: MLPredictor instance
-            state_manager: StateManager instance (optional)
-        """
         super().__init__(
             name="MasterAgent",
-            description="Orchestrates and coordinates all specialized agents"
+            description="Orchestrates all 8 specialized agents for predictive maintenance"
         )
-
-        # State manager
         self.state_manager = state_manager
-
-        # Initialize child agents
         self.agents = {}
-        self._register_default_agents(ml_predictor)
+        self._register_all_agents(ml_predictor)
 
-    def _register_default_agents(self, ml_predictor):
-        """Register default agents"""
-        # Data Analysis Agent
+    def _register_all_agents(self, ml_predictor):
+        """Register all 8 agents - FIXED for Person 2 & Person 4 constructors"""
+        print("🚀 Starting agent registration...")
+
+        # 1. Your Basic Agents (Person 1)
         self.register_agent(DataAnalysisAgent())
+        self.register_agent(DiagnosisAgent(ml_predictor))  # ← Needs ml_predictor
 
-        # Diagnosis Agent (uses ML model)
-        self.register_agent(DiagnosisAgent(ml_predictor))
+        # 2. Person 2 Advanced Agents (NO ml_predictor needed)
+        self.register_agent(Person2DataAnalysisAgent())  # Health scoring
+        self.register_agent(Person2DiagnosisAgent())  # Customer messaging
+
+        # 3. Person 4 Business Logic Agents (NO ml_predictor needed)
+        self.register_agent(EngagementAgent())  # ⭐ Time-based notifications
+        self.register_agent(SchedulingAgent())
+        self.register_agent(FeedbackAgent())
+        self.register_agent(ManufacturingInsightsAgent())
+
+        print(f"✅ Successfully registered {len(self.agents)} agents")
 
     def register_agent(self, agent: BaseAgent):
-        """
-        Register a new agent
-
-        Args:
-            agent: Agent instance to register
-        """
-        self.agents[agent.name] = agent
-        print(f"✓ Registered agent: {agent.name}")
+        """Register single agent"""
+        if agent.name not in self.agents:
+            self.agents[agent.name] = agent
+            print(f"✓ Registered: {agent.name}")
+        else:
+            print(f"⚠️ Agent {agent.name} already registered")
 
     def get_registered_agents(self) -> List[Dict[str, Any]]:
-        """
-        Get list of all registered agents
-
-        Returns:
-            list: Agent information
-        """
         return [agent.get_info() for agent in self.agents.values()]
 
     def process(self, data: Dict[str, Any], workflow_id: str = None) -> Dict[str, Any]:
-        """
-        Coordinate multi-agent analysis
-
-        Args:
-            data: Dictionary containing vehicle_id and sensors
-            workflow_id: Optional workflow ID for tracking
-
-        Returns:
-            dict: Combined analysis from all agents
-        """
-        self._log_call()
-
+        """Run analysis with ALL agents + time awareness for EngagementAgent"""
         vehicle_id = data.get("vehicle_id", "Unknown")
+        now = datetime.now()
+        current_hour = now.hour
 
-        print(f"\n{'='*60}")
-        print(f"Master Agent: Analyzing {vehicle_id}")
-        if workflow_id:
-            print(f"Workflow ID: {workflow_id}")
-        print('='*60)
+        # Add current time info (critical for EngagementAgent)
+        data = data.copy()
+        data.update({
+            "current_time": now,
+            "current_hour": current_hour,
+            "is_business_hours": 9 <= current_hour < 20,   # 9 AM - 8 PM
+            "owner": data.get("owner", {})                 # fallback if not provided
+        })
 
-        # Update workflow status if state manager available
+        print(f"\n{'='*75}")
+        print(f"🔍 MasterAgent analyzing {vehicle_id} | Time: {now.strftime('%H:%M')} ({current_hour}h)")
+        print('='*75)
+
         if self.state_manager and workflow_id:
-            self.state_manager.update_workflow(
-                workflow_id,
-                status="running"
-            )
+            self.state_manager.update_workflow(workflow_id, status="running")
 
         results = {
             "vehicle_id": vehicle_id,
-            "master_agent": self.name,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "workflow_id": workflow_id,
+            "timestamp": now.isoformat(),
+            "current_hour": current_hour,
+            "is_business_hours": data["is_business_hours"],
             "agents_consulted": [],
             "findings": {},
             "final_assessment": {}
         }
 
-        try:
-            # 1. Call Data Analysis Agent
-            if "DataAnalysisAgent" in self.agents:
-                print("→ Consulting Data Analysis Agent...")
-                analysis = self.agents["DataAnalysisAgent"].process(data)
-                results["findings"]["data_analysis"] = analysis
-                results["agents_consulted"].append("DataAnalysisAgent")
-                print(f"  Status: {analysis.get('overall_status')}")
+        # Run every registered agent
+        for name, agent in list(self.agents.items()):
+            try:
+                print(f"→ Running {name}...")
+                agent_result = agent.process(data)   # All agents should have .process(data)
+                results["findings"][name] = agent_result
+                results["agents_consulted"].append(name)
+                print(f"  ✓ {name} completed")
+            except Exception as e:
+                print(f"  ✗ Error in {name}: {str(e)}")
+                results["findings"][name] = {"status": "error", "message": str(e)}
 
-            # 2. Call Diagnosis Agent
-            if "DiagnosisAgent" in self.agents:
-                print("→ Consulting Diagnosis Agent...")
-                diagnosis = self.agents["DiagnosisAgent"].process(data)
-                results["findings"]["diagnosis"] = diagnosis
-                results["agents_consulted"].append("DiagnosisAgent")
-                print(f"  Risk: {diagnosis['ml_prediction'].get('risk_level')}")
-
-            # 3. Generate final assessment
-            print("→ Generating final assessment...")
-            final_assessment = self._generate_final_assessment(results["findings"])
-            results["final_assessment"] = final_assessment
-
-            print(f"  Final Status: {final_assessment['overall_status']}")
-
-            # Update workflow with success
-            if self.state_manager and workflow_id:
-                self.state_manager.update_workflow(
-                    workflow_id,
-                    status="completed",
-                    results=results,
-                    agents_executed=results["agents_consulted"]
-                )
-
-        except Exception as e:
-            print(f"✗ Error during analysis: {e}")
-
-            # Update workflow with error
-            if self.state_manager and workflow_id:
-                self.state_manager.update_workflow(
-                    workflow_id,
-                    status="failed",
-                    error=str(e)
-                )
-
-            raise
-
-        print('='*60)
-
-        return results
-
-    def _generate_final_assessment(self, findings: Dict) -> Dict[str, Any]:
-        """
-        Combine findings from all agents into final assessment
-
-        Args:
-            findings: Results from all agents
-
-        Returns:
-            dict: Final assessment and recommendations
-        """
-        # Extract key information
-        data_analysis = findings.get("data_analysis", {})
-        diagnosis = findings.get("diagnosis", {})
-
-        # Determine overall status (most severe wins)
-        statuses = []
-
-        if data_analysis:
-            statuses.append(data_analysis.get("overall_status", "unknown"))
-
-        if diagnosis:
-            ml_pred = diagnosis.get("ml_prediction", {})
-            risk_level = ml_pred.get("risk_level", "LOW")
-            if risk_level == "HIGH":
-                statuses.append("critical")
-            elif risk_level == "MEDIUM":
-                statuses.append("warning")
-            else:
-                statuses.append("healthy")
-
-        # Most severe status
-        if "critical" in statuses:
-            overall_status = "critical"
-            priority = "URGENT"
-        elif "warning" in statuses:
-            overall_status = "warning"
-            priority = "HIGH"
-        else:
-            overall_status = "healthy"
-            priority = "NORMAL"
-
-        # Collect all recommendations
-        recommendations = []
-
-        # From data analysis
-        if data_analysis:
-            critical_anomalies = data_analysis.get("findings", {}).get("critical", [])
-            for anomaly in critical_anomalies:
-                recommendations.append(anomaly.get("recommendation", ""))
-
-        # From diagnosis
-        if diagnosis:
-            diag_actions = diagnosis.get("recommended_actions", [])
-            recommendations.extend(diag_actions)
-
-        # Remove duplicates
-        recommendations = list(set(filter(None, recommendations)))
-
-        # Generate summary
-        if overall_status == "critical":
-            summary = "CRITICAL CONDITION: Immediate attention required. Multiple systems showing critical issues."
-        elif overall_status == "warning":
-            summary = "WARNING: Vehicle requires maintenance. Schedule service within 1 week."
-        else:
-            summary = "HEALTHY: All systems operating normally. Continue regular maintenance schedule."
-
-        return {
-            "overall_status": overall_status,
-            "priority": priority,
-            "summary": summary,
-            "recommendations": recommendations[:5],  # Top 5 recommendations
-            "critical_issues_count": len(data_analysis.get("findings", {}).get("critical", [])),
-            "warning_issues_count": len(data_analysis.get("findings", {}).get("warning", [])),
-            "failure_probability": diagnosis.get("ml_prediction", {}).get("failure_probability", 0) if diagnosis else 0
+        # Final summary
+        results["final_assessment"] = {
+            "overall_status": "critical" if any("critical" in str(v).lower() for v in results["findings"].values()) else "healthy",
+            "summary": f"Completed analysis using {len(results['agents_consulted'])} agents",
+            "recommendations": ["Check individual agent findings for details"]
         }
+
+        if self.state_manager and workflow_id:
+            self.state_manager.update_workflow(workflow_id, status="completed", results=results)
+
+        print(f"🎉 Analysis finished with {len(results['agents_consulted'])} agents")
+        return results
